@@ -50,7 +50,7 @@ def show_predict_page():
     st.sidebar.write("### Input Features")
         
     age = st.sidebar.number_input(label='Age', value=1, max_value=120, min_value=0, step=1)
-    education = st.sidebar.number_input(label='Education', value=1, max_value=6, min_value=1, step=1)
+    
     # 顯示選單（顯示文字）
     selected_education_label = st.sidebar.selectbox(
     "Education",
