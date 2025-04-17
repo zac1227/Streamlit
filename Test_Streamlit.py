@@ -61,15 +61,15 @@ def show_predict_page():
     g_hei = st.sidebar.number_input(label='Height', value=180.0, step=0.1)
     g_wei = st.sidebar.number_input(label='Weight', value=40.0, min_value=40.0, step=0.1)
     lf_ldh = st.sidebar.number_input(label='LDH', value=0.0, step=0.1)
-    #cbc_leu = st.sidebar.number_input(label='cbc_leu', value=0.0,  step=0.1)
-    #systolic = st.sidebar.number_input(label='systolic', value=0.0,  step=0.1)
-    #lf_tb = st.sidebar.number_input(label='lf_tb', value=0.0,  step=0.1)
+    cbc_leu = st.sidebar.number_input(label='cbc_leu', value=0.0,  step=0.1)
+    systolic = st.sidebar.number_input(label='systolic', value=0.0,  step=0.1)
+    lf_tb = st.sidebar.number_input(label='lf_tb', value=0.0,  step=0.1)
     
-    
+    cbc_leu,systolic,lf_tb,
     #cbc_leu,systolic,lf_tb,
     # 收集用戶輸入數據
     input_data = [
-    age,education,g_hei,lf_ldh,g_wei
+    age,education,g_hei,lf_ldh,cbc_leu,systolic,lf_tb,g_wei
    
     ]
 
