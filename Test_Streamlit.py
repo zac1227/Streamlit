@@ -87,7 +87,7 @@ def show_predict_page():
             j_scores = tpr - fpr
             optimal_idx = j_scores.argmax()
             optimal_threshold = thresholds[optimal_idx]
-            if probs_calibrated[0] >= optimal_threshold:
+            if predicted_probability >= optimal_threshold:
                 st.error("The model predicts: 有肺功能異常")
             else:
                 st.success("The model predicts: 無肺功能異常")
