@@ -11,7 +11,7 @@ from sklearn.calibration import calibration_curve, CalibratedClassifierCV
 # **全局加載模型**（只執行一次）
 @st.cache_resource  # 使用 Streamlit 的快取功能
 def load_model():
-    with open("C:\\Users\\a0986\\Streamlit_Project\\Koching\\decision_tree_model4.pkl", 'rb') as file:
+    with open("decision_tree_model4.pkl", 'rb') as file:
         model = pickle.load(file)
     return model
 
@@ -24,10 +24,10 @@ def load_data():
     # 替換為你的訓練數據和測試數據路徑
     #train_data = pd.read_csv("C:\\Users\\a0986\\Streamlit_Project\\Koching\\train_data.csv")
     #test_data = pd.read_csv("C:\\Users\\a0986\\Streamlit_Project\\Koching\\test_data.csv")
-    x_train = pd.read_csv("C:\\Users\\a0986\Streamlit_Project\\Koching\\x_train_subset[4].csv", index_col=0)
-    y_train = pd.read_csv("C:\\Users\\a0986\Streamlit_Project\\Koching\\y_train_subset[4].csv", index_col=0)
-    x_test = pd.read_csv("C:\\Users\\a0986\Streamlit_Project\\Koching\\x_test_subset[4].csv", index_col=0)
-    y_test = pd.read_csv("C:\\Users\\a0986\Streamlit_Project\\Koching\\y_test_subset[4].csv", index_col=0)
+    x_train = pd.read_csv("x_train_subset[4].csv", index_col=0)
+    y_train = pd.read_csv("y_train_subset[4].csv", index_col=0)
+    x_test = pd.read_csv("x_test_subset[4].csv", index_col=0)
+    y_test = pd.read_csv("y_test_subset[4].csv", index_col=0)
     y_train = y_train.values.ravel()
     y_test = y_test.values.ravel()  
     return x_train, y_train, x_test, y_test
@@ -111,7 +111,7 @@ def show_predict_page():
             st.subheader("Likelihood Distribution with Threshold")
             st.pyplot(plt)
             st.subheader("Decision Tree Visualization")
-            st.image("C:\\Users\\a0986\\Streamlit_Project\Koching\\智越醫師-tree4_去除小數點.drawio.png", caption="Decision Tree Visualization")
+            st.image("智越醫師-tree4_去除小數點.drawio.png", caption="Decision Tree Visualization")
 
         except ValueError as e:
             st.error(f"An error occurred: {e}")
