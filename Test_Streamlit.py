@@ -37,18 +37,34 @@ x_train, y_train, x_test, y_test = load_data()
 # **主頁面函數**
 def show_predict_page():
     st.title("ML Model Prediction")
-
+    # 教育程度對應表
+    education_options = {
+    1: "1 Illiterate",
+    2: "2 Primary school",
+    3: "3 Junior high school",
+    4: "4 Senior high school",
+    5: "5 College & University",
+    6: "6 Higher than master’s degree"
+    }
     # **輸入特徵數據**
     st.sidebar.write("### Input Features")
-    
-    age = st.sidebar.number_input(label='age', value=1, max_value=120, min_value=0, step=1)
-    education = st.sidebar.number_input(label='education', value=1, max_value=6, min_value=1, step=1)
-    g_hei = st.sidebar.number_input(label='g_hei', value=180.0, step=0.1)
-    lf_ldh = st.sidebar.number_input(label='lf_ldh', value=0.0, step=0.1)
+        
+    age = st.sidebar.number_input(label='Age', value=1, max_value=120, min_value=0, step=1)
+    education = st.sidebar.number_input(label='Education', value=1, max_value=6, min_value=1, step=1)
+    # 顯示選單（顯示文字）
+    selected_education_label = st.sidebar.selectbox(
+    "Education",
+    options=list(education_options.values())
+    )
+    # 對應回數字（模型輸入用）
+    education = [k for k, v in education_options.items() if v == selected_education_label][0]
+    g_hei = st.sidebar.number_input(label='Height', value=180.0, step=0.1)
+    g_wei = st.sidebar.number_input(label='Weight', value=40.0, min_value=40.0, step=0.1)
+    lf_ldh = st.sidebar.number_input(label='LDH', value=0.0, step=0.1)
     cbc_leu = st.sidebar.number_input(label='cbc_leu', value=0.0,  step=0.1)
     systolic = st.sidebar.number_input(label='systolic', value=0.0,  step=0.1)
     lf_tb = st.sidebar.number_input(label='lf_tb', value=0.0,  step=0.1)
-    g_wei = st.sidebar.number_input(label='g_wei', value=40.0, min_value=40.0, step=0.1)
+    
     
 
     # 收集用戶輸入數據
@@ -111,7 +127,7 @@ def show_predict_page():
             st.subheader("Likelihood Distribution with Threshold")
             st.pyplot(plt)
             st.subheader("Decision Tree Visualization")
-            st.image("智越醫師-tree4_去除小數點.drawio.png", caption="Decision Tree Visualization")
+            st.image("tree4_20250226.png")
 
         except ValueError as e:
             st.error(f"An error occurred: {e}")
