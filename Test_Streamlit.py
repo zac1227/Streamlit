@@ -65,7 +65,7 @@ def show_predict_page():
     systolic = st.sidebar.number_input(label='systolic', value=0.0,  step=0.1)
     lf_tb = st.sidebar.number_input(label='lf_tb', value=0.0,  step=0.1)
     
-    cbc_leu,systolic,lf_tb,
+    #cbc_leu,systolic,lf_tb,
     #cbc_leu,systolic,lf_tb,
     # 收集用戶輸入數據
     input_data = [
