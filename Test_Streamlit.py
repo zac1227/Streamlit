@@ -14,6 +14,7 @@ def load_model():
     with open("decision_tree_model4.pkl", 'rb') as file:
         model = pickle.load(file)
     return model
+    
 
 # 加載模型
 model = load_model()
@@ -32,6 +33,11 @@ def load_data():
     y_test = y_test.values.ravel()  
     return x_train, y_train, x_test, y_test
 
+def get_calibrated_model(model, x_train, y_train):
+    calibrated_model = CalibratedClassifierCV(model, method='sigmoid', cv='prefit')
+    calibrated_model.fit(x_train, y_train)
+    return calibrated_model
+    
 x_train, y_train, x_test, y_test = load_data()
 
 # **主頁面函數**
@@ -93,7 +99,7 @@ def show_predict_page():
 
             # **校準模型**
             calibrated_model = CalibratedClassifierCV(model, method='sigmoid', cv='prefit')
-            calibrated_model.fit(x_train, y_train)
+            calibrated_model = get_calibrated_model(model, x_train, y_train)
             probs_calibrated = calibrated_model.predict_proba(x_test)[:, 1]
             
             # Lose 和 Win 分佈
