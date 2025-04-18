@@ -32,7 +32,7 @@ def load_data():
     y_train = y_train.values.ravel()
     y_test = y_test.values.ravel()  
     return x_train, y_train, x_test, y_test
-
+@st.cache_resource
 def get_calibrated_model(model, x_train, y_train):
     calibrated_model = CalibratedClassifierCV(model, method='sigmoid', cv='prefit')
     calibrated_model.fit(x_train, y_train)
@@ -98,7 +98,6 @@ def show_predict_page():
             
 
             # **校準模型**
-            calibrated_model = CalibratedClassifierCV(model, method='sigmoid', cv='prefit')
             calibrated_model = get_calibrated_model(model, x_train, y_train)
             probs_calibrated = calibrated_model.predict_proba(x_test)[:, 1]
             
@@ -117,7 +116,7 @@ def show_predict_page():
                 st.success("The model predicts: 無肺功能異常")
             # **繪製機率分佈圖**
             sns.set(style="darkgrid")
-            plt.figure(figsize=(12, 6))
+            fig, ax = plt.subplots(figsize=(12, 6))
             sns.kdeplot(lose_likelihood_cal, color="blue", shade=True, label="False Likelihood (Calibrated)")
             sns.kdeplot(win_likelihood_cal, color="red", shade=True, label="True Likelihood (Calibrated)")
             plt.axvline(optimal_threshold, color="black", linestyle="--", label=f"Threshold: {optimal_threshold:.2f}")
