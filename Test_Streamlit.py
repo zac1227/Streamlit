@@ -32,7 +32,7 @@ def load_data():
     y_train = y_train.values.ravel()
     y_test = y_test.values.ravel()  
     return x_train, y_train, x_test, y_test
-@st.cache_resource
+    
 def get_calibrated_model(model, x_train, y_train):
     calibrated_model = CalibratedClassifierCV(model, method='sigmoid', cv='prefit')
     calibrated_model.fit(x_train, y_train)
