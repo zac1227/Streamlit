@@ -59,12 +59,12 @@ def show_predict_page():
     
     # 顯示選單（顯示文字）
     selected_education_label = st.sidebar.selectbox(
-    Education (Education attainment) (1: Illiterate,
-    2: Primary school,
-    3: Junior high school,
-    4: Senior high school,
-    5: College & University,
-    6: Higher than master's degree),
+    Education (Education attainment) ("1: Illiterate,"
+    "2: Primary school,"
+    "3: Junior high school,"
+    "4: Senior high school,"
+    "5: College & University,"
+    "6: Higher than master's degree)",
     options=list(education_options.values())
     )
     # 對應回數字（模型輸入用）
@@ -124,7 +124,7 @@ def show_predict_page():
 
             # **顯示分佈圖**
 
-            st.subheader("Likelihood Distribution with Threshold")
+            
             st.pyplot(plt)
             st.subheader("Decision Tree Visualization")
             st.image("tree4_20250226.png")
