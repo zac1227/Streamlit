@@ -64,7 +64,7 @@ def show_predict_page():
     3: Junior high school,
     4: Senior high school,
     5: College & University,
-    6: Higher than master’s degree),
+    6: Higher than master's degree),
     options=list(education_options.values())
     )
     # 對應回數字（模型輸入用）
