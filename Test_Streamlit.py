@@ -59,7 +59,7 @@ def show_predict_page():
     
     # 顯示選單（顯示文字）
     selected_education_label = st.sidebar.selectbox(
-    Education (Education attainment) ("1: Illiterate,"
+    "Education (Education attainment) (1: Illiterate,"
     "2: Primary school,"
     "3: Junior high school,"
     "4: Senior high school,"
