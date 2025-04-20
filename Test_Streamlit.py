@@ -122,10 +122,6 @@ def show_predict_page():
             
            
 
-            # **顯示分佈圖**
-
-            
-            st.pyplot(plt)
             st.subheader("Decision Tree Visualization")
             st.image("tree4_20250226.png")
 
