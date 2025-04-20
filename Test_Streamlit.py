@@ -55,18 +55,23 @@ def show_predict_page():
     # **輸入特徵數據**
     st.sidebar.write("### Input Features")
         
-    age = st.sidebar.number_input(label='Age', value=18, max_value=90, min_value=18, step=1)
+    age = st.sidebar.number_input(label='Age (18~90)', value=18, max_value=90, min_value=18, step=1)
     
     # 顯示選單（顯示文字）
     selected_education_label = st.sidebar.selectbox(
-    "Education",
+    "Education (Education attainment) (1: Illiterate,
+    2: Primary school,
+    3: Junior high school,
+    4: Senior high school,
+    5: College & University,
+    6: Higher than master’s degree),
     options=list(education_options.values())
     )
     # 對應回數字（模型輸入用）
     education = [k for k, v in education_options.items() if v == selected_education_label][0]
-    g_hei = st.sidebar.number_input(label='Height', value=180.0, step=0.1)
-    g_wei = st.sidebar.number_input(label='Weight', value=40.0, min_value=40.0, step=0.1)
-    lf_ldh = st.sidebar.number_input(label='LDH', value=0.0, step=0.1)
+    g_hei = st.sidebar.number_input(label='Height (cm)', value=180.0, step=0.1)
+    g_wei = st.sidebar.number_input(label='Weight (kg)', value=40.0, min_value=40.0, step=0.1)
+    lf_ldh = st.sidebar.number_input(label='LDH (Lactate dehydrogenase) (IU/L)', value=0.0, step=0.1)
     #cbc_leu = st.sidebar.number_input(label='cbc_leu', value=0.0,  step=0.1)
     #systolic = st.sidebar.number_input(label='systolic', value=0.0,  step=0.1)
     #lf_tb = st.sidebar.number_input(label='lf_tb', value=0.0,  step=0.1)
@@ -94,7 +99,7 @@ def show_predict_page():
 
             # **顯示預測結果**
             st.subheader("Prediction Result")
-            st.write(f"Predicted Probability of Class 1 (有肺功能異常): {predicted_probability:.2f}")
+            #st.write(f"Predicted Probability of Class 1 (有肺功能異常): {predicted_probability:.2f}")
             
 
             # **校準模型**
@@ -111,23 +116,11 @@ def show_predict_page():
             optimal_idx = j_scores.argmax()
             optimal_threshold = thresholds[optimal_idx]
             if predicted_probability >= optimal_threshold:
-                st.error("The model predicts: 有肺功能異常")
+                st.error("The model predicts: Positive")
             else:
-                st.success("The model predicts: 無肺功能異常")
-            # **繪製機率分佈圖**
-            sns.set(style="darkgrid")
-            fig, ax = plt.subplots(figsize=(12, 6))
-            sns.kdeplot(lose_likelihood_cal, color="blue", shade=True, label="False Likelihood (Calibrated)")
-            sns.kdeplot(win_likelihood_cal, color="red", shade=True, label="True Likelihood (Calibrated)")
-            plt.axvline(optimal_threshold, color="black", linestyle="--", label=f"Threshold: {optimal_threshold:.2f}")
-            plt.axvline(predicted_probability, color="red", linestyle="--", label=f"Predict probability: {predicted_probability:.2f}")
-            #plt.axvline(0.5, color="black", linestyle="--", label="Threshold: 0.5")
-            plt.title("Likelihood Distribution (0~1 Range)", fontsize=16)
-            plt.xlim(0,1)
-            plt.xlabel("Predicted Likelihood", fontsize=14)
-            plt.ylabel("Density", fontsize=14)
-            plt.legend(fontsize=12)
-            plt.grid(True)
+                st.success("The model predicts: Negative")
+            
+           
 
             # **顯示分佈圖**
 
