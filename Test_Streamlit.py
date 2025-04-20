@@ -50,7 +50,7 @@ def show_predict_page():
     3: "3 Junior high school",
     4: "4 Senior high school",
     5: "5 College & University",
-    6: "6 Higher than master’s degree"
+    6: "6 Higher than master's degree"
     }
     # **輸入特徵數據**
     st.sidebar.write("### Input Features")
