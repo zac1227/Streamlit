@@ -19,26 +19,7 @@ def load_model():
 # 加載模型
 model = load_model()
 
-# **載入數據**（測試數據 & 訓練數據）
-@st.cache_data
-def load_data():
-    # 替換為你的訓練數據和測試數據路徑
-    #train_data = pd.read_csv("C:\\Users\\a0986\\Streamlit_Project\\Koching\\train_data.csv")
-    #test_data = pd.read_csv("C:\\Users\\a0986\\Streamlit_Project\\Koching\\test_data.csv")
-    x_train = pd.read_csv("x_train_subset[4].csv", index_col=0)
-    y_train = pd.read_csv("y_train_subset[4].csv", index_col=0)
-    x_test = pd.read_csv("x_test_subset[4].csv", index_col=0)
-    y_test = pd.read_csv("y_test_subset[4].csv", index_col=0)
-    y_train = y_train.values.ravel()
-    y_test = y_test.values.ravel()  
-    return x_train, y_train, x_test, y_test
-    
-def get_calibrated_model(model, x_train, y_train):
-    calibrated_model = CalibratedClassifierCV(model, method='sigmoid', cv='prefit')
-    calibrated_model.fit(x_train, y_train)
-    return calibrated_model
-    
-x_train, y_train, x_test, y_test = load_data()
+
 
 # **主頁面函數**
 def show_predict_page():
@@ -102,24 +83,14 @@ def show_predict_page():
             #st.write(f"Predicted Probability of Class 1 (有肺功能異常): {predicted_probability:.2f}")
             
 
-            # **校準模型**
-            calibrated_model = get_calibrated_model(model, x_train, y_train)
-            probs_calibrated = calibrated_model.predict_proba(x_test)[:, 1]
             
-            # Lose 和 Win 分佈
-            lose_likelihood_cal = probs_calibrated[y_test == 0]
-            win_likelihood_cal = probs_calibrated[y_test == 1]
 
-            # 計算 ROC 曲線和最佳閾值
-            fpr, tpr, thresholds = roc_curve(y_test, probs_calibrated)
-            j_scores = tpr - fpr
-            optimal_idx = j_scores.argmax()
-            optimal_threshold = thresholds[optimal_idx]
-            if predicted_probability >= optimal_threshold:
+            
+
+            if predicted_class == 1:
                 st.error("The model predicts: Positive")
             else:
                 st.success("The model predicts: Negative")
-            
            
 
             st.subheader("Decision Tree Visualization")
